@@ -2,7 +2,6 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.0'
 	id 'io.spring.dependency-management' version '1.1.5'
-  	id("com.github.bjornvester.xjc") version '1.8.1'
 }
 
 group = 'ee.buerokratt'
@@ -44,8 +43,3 @@ tasks.named('test') {
 }
 
 
-xjc {
-  		xsdDir.set(layout.projectDirectory.dir("xsd"))
-		defaultPackage.set('ee.buerokratt.nxtr.generated')
-		outputJavaDir = file("$buildDir/generated-sources/xjc")
-	}

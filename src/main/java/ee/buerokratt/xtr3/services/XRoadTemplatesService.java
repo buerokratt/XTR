@@ -56,8 +56,8 @@ public class XRoadTemplatesService {
         log.info("Loaded service: " + service.toString());
 
         String[] pathParts = file.getPath().split("/");
-        String groupName = pathParts[1];
-        String serviceName = pathParts[2].substring(0, pathParts[2].indexOf(".y"));
+        String groupName = pathParts[pathParts.length-2];
+        String serviceName = pathParts[pathParts.length-1].substring(0, pathParts[pathParts.length-1].indexOf(".y"));
         addService(groupName, serviceName, service);
     }
 
