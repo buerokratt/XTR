@@ -1,4 +1,4 @@
-package ee.buerokratt.xtr3.configuration;
+package ee.buerokratt.xtr.configuration;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;

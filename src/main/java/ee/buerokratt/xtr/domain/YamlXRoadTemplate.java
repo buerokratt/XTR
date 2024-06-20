@@ -1,4 +1,4 @@
-package ee.buerokratt.xtr3.domain;
+package ee.buerokratt.xtr.domain;
 
 import lombok.Data;
 

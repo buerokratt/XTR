@@ -1,8 +1,8 @@
-package ee.buerokratt.xtr3.controllers;
+package ee.buerokratt.xtr.controllers;
 
-import ee.buerokratt.xtr3.domain.YamlXRoadTemplate;
-import ee.buerokratt.xtr3.services.RequestExecutorService;
-import ee.buerokratt.xtr3.services.XRoadTemplatesService;
+import ee.buerokratt.xtr.domain.YamlXRoadTemplate;
+import ee.buerokratt.xtr.services.RequestExecutorService;
+import ee.buerokratt.xtr.services.XRoadTemplatesService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

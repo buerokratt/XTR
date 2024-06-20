@@ -1,4 +1,4 @@
-package ee.buerokratt.xtr3;
+package ee.buerokratt.xtr;
 
 import org.junit.jupiter.api.Test;
 

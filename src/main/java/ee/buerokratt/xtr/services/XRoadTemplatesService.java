@@ -1,7 +1,7 @@
-package ee.buerokratt.xtr3.services;
+package ee.buerokratt.xtr.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ee.buerokratt.xtr3.domain.YamlXRoadTemplate;
+import ee.buerokratt.xtr.domain.YamlXRoadTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -56,8 +56,8 @@ public class XRoadTemplatesService {
         log.info("Loaded service: " + service.toString());
 
         String[] pathParts = file.getPath().split("/");
-        String groupName = pathParts[1];
-        String serviceName = pathParts[2].substring(0, pathParts[2].indexOf(".y"));
+        String groupName = pathParts[pathParts.length-2];
+        String serviceName = pathParts[pathParts.length-1].substring(0, pathParts[pathParts.length-1].indexOf(".y"));
         addService(groupName, serviceName, service);
     }
 
