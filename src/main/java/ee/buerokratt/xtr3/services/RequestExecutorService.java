@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import ee.buerokratt.xtr3.domain.YamlXRoadTemplate;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class RequestExecutorService {
 
@@ -36,6 +38,8 @@ public class RequestExecutorService {
 
     private String doRequest(String serviceURI, String method, String payload) {
         RestClient client = RestClient.create();
+
+        log.info("Sending "+ method +"request [[" + payload + "]] to endpoint "+ serviceURI);
 
         return client.method(HttpMethod.valueOf(method))
                 .uri(serviceURI)
