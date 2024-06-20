@@ -34,4 +34,4 @@ USER xtr
 
 EXPOSE 9010
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","ee.buerokratt.xtr3.XTR3Application"]
+ENTRYPOINT ["java","-cp","app:app/lib/*","ee.buerokratt.xtr.XTRApplication"]

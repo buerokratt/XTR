@@ -1,7 +1,7 @@
-package ee.buerokratt.xtr3.services;
+package ee.buerokratt.xtr.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ee.buerokratt.xtr3.domain.YamlXRoadTemplate;
+import ee.buerokratt.xtr.domain.YamlXRoadTemplate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

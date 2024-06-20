@@ -1,4 +1,4 @@
-package ee.buerokratt.xtr3.services;
+package ee.buerokratt.xtr.services;
 
 import com.github.jknack.handlebars.Handlebars;
 import com.github.jknack.handlebars.Template;

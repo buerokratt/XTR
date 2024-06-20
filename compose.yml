@@ -1,7 +1,7 @@
 version: '3.9'
 services:
- xtr3:
-    container_name: xtr3
+ xtr:
+    container_name: xtr
     build:
       context: .
     ports:
