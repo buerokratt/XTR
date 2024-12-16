@@ -1,6 +1,6 @@
 package ee.buerokratt.xtr.controllers;
 
-import ee.buerokratt.xtr.domain.YamlXRoadTemplate;
+import ee.buerokratt.xtr.domain.XRoadTemplate;
 import ee.buerokratt.xtr.services.RequestExecutorService;
 import ee.buerokratt.xtr.services.XRoadTemplatesService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,7 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.Map;
 
 import static org.apache.logging.log4j.message.ParameterizedMessage.deepToString;
@@ -33,13 +32,14 @@ public class XRoadRequestController {
 
         log.info("got request: " + deepToString(uriParts));
 
-        YamlXRoadTemplate service = serviceReader.getService(uriParts[1], uriParts[2]);
+        XRoadTemplate service = serviceReader.getService(uriParts[1], uriParts[2]);
 
         log.info("loaded template: " + deepToString( service ));
 
         try {
-            return ResponseEntity.ok(executor.execute(service, requestBody));
-        } catch (IOException e) {
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON)
+            .body(executor.execute(service, requestBody));
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getCause());
         }
     }

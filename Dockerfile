@@ -8,6 +8,7 @@ COPY build.gradle .
 COPY src src
 COPY .env .env
 COPY DSL DSL
+COPY wsdl wsdl
 
 RUN chmod 754 ./gradlew
 RUN ./gradlew -Pprod clean bootJar
@@ -21,17 +22,23 @@ COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
 COPY DSL /DSL
+COPY wsdl /app/wsdl
+COPY generate-keystore.sh .
+
+COPY ssl ssl
 
 ENV application.dslPath=/DSL
 
 COPY .env /app/.env
 RUN echo BUILDTIME=`date +%s` >> /app/.env
 
-RUN adduser xtr
+# RUN adduser xtr
+
+RUN useradd xtr
 RUN chown -R xtr:xtr /app
 RUN chown -R xtr:xtr /DSL
 USER xtr
 
 EXPOSE 9010
 
-ENTRYPOINT ["java","-cp","app:app/lib/*","ee.buerokratt.xtr.XTRApplication"]
+ENTRYPOINT ["./generate-keystore.sh"]
