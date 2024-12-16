@@ -32,8 +32,6 @@ ENV application.dslPath=/DSL
 COPY .env /app/.env
 RUN echo BUILDTIME=`date +%s` >> /app/.env
 
-# RUN adduser xtr
-
 RUN useradd xtr
 RUN chown -R xtr:xtr /app
 RUN chown -R xtr:xtr /DSL
