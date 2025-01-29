@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+ xtr:
+    container_name: xtr
+    build:
+      context: .
+    ports:
+      - 9020:8080
+    volumes:
+      - ./DSL:/DSL
+    networks:
+      - bykstack
+
+networks:
+  bykstack:
+    name: bykstack
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
