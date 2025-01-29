@@ -39,20 +39,9 @@ jobs:
           git commit -m "docs: update version"
           git push  
 
-      # - name: Load environment variables
-      #   run: |
-      #     awk -v "${{ env.BRANCH }}" ' /^[0-9a-zA-Z]+$/ { current_branch = $0; } current_branch == branch && /^[A-Z_]+=/{ print $0; }' release.env >> $GITHUB_ENV
-      #   if: ${{ env.BRANCH == 'main' }}
-
       - name: Load environment variables
         run: |
-          # Load environment variables based on the current branch
-          awk -v branch="${{ env.BRANCH }}" '
-            $0 == branch { in_branch = 1; next }
-            in_branch && /^[A-Z_]+=/{ print $0 }
-            $0 == "" { in_branch = 0 }
-          ' release.env >> $GITHUB_ENV
-        if: ${{ env.BRANCH == 'main' }}
+          awk -v branch="${{ env.BRANCH }}" ' /^[0-9a-zA-Z]+$/ { current_branch = $0; } current_branch == branch && /^[A-Z_]+=/{ print $0; }' release.env >> $GITHUB_ENV
       
       - name: Log in to GitHub container registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
@@ -60,13 +49,13 @@ jobs:
       - name: Build Docker image
         run: |
           echo "Building Docker image for branch: ${{ env.BRANCH }} vmajor: ${{ env.MAJOR }} minor: ${{ env.MINOR }} patch: ${{ env.PATCH }}"
-          docker image build -t "v${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}" .
+          docker image build -t v${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }} .
         if: ${{ env.BRANCH == 'test' }}
 
       - name: Push Docker image to GitHub Packages
         run: |
           echo "Pushing Docker image to GitHub Packages"
-          docker push "v${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}"
+          docker push v${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}
         if: ${{ env.BRANCH == 'test' || env.BRANCH == 'stage' || env.BRANCH == 'main' }}     
 
       - name: Create Release
