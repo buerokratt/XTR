@@ -50,8 +50,8 @@ jobs:
       
       - name: Build Docker image
         run: |
-          echo "Building Docker image for branch: ${{ env.BRANCH }}"
-          docker image build -t "${{ env.VERSION }}${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}" .
+          echo "Building Docker image for branch: ${{ env.BRANCH }} vmajor: ${{ env.MAJOR }} minor: ${{ env.MINOR }} patch: ${{ env.PATCH }}"
+          docker image build --tag "${{ env.VERSION }}${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}" .
         if: ${{ env.BRANCH == 'test' }}
 
       - name: Push Docker image to GitHub Packages
