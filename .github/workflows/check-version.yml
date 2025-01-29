@@ -39,9 +39,19 @@ jobs:
           git commit -m "docs: update version"
           git push  
 
+      # - name: Load environment variables
+      #   run: |
+      #     awk -v "${{ env.BRANCH }}" ' /^[0-9a-zA-Z]+$/ { current_branch = $0; } current_branch == branch && /^[A-Z_]+=/{ print $0; }' release.env >> $GITHUB_ENV
+      #   if: ${{ env.BRANCH == 'main' }}
+
       - name: Load environment variables
         run: |
-          awk -v "${{ env.BRANCH }}" ' /^[0-9a-zA-Z]+$/ { current_branch = $0; } current_branch == branch && /^[A-Z_]+=/{ print $0; }' release.env >> $GITHUB_ENV
+          # Load environment variables based on the current branch
+          awk -v branch="${{ env.BRANCH }}" '
+            $0 == branch { in_branch = 1; next }
+            in_branch && /^[A-Z_]+=/{ print $0 }
+            $0 == "" { in_branch = 0 }
+          ' release.env >> $GITHUB_ENV
         if: ${{ env.BRANCH == 'main' }}
       
       - name: Log in to GitHub container registry
