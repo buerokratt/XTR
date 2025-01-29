@@ -48,13 +48,13 @@ jobs:
       - name: Build Docker image
         run: |
           echo "Building Docker image for branch: ${{ env.BRANCH }}"
-          docker build -t ${{ env.VERSION }}${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }} .
+          docker build -t "${{ env.VERSION }}${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}" .
         if: ${{ env.BRANCH == 'test' }}
 
       - name: Push Docker image to GitHub Packages
         run: |
           echo "Pushing Docker image to GitHub Packages"
-          docker push ${{ env.VERSION }}${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}
+          docker push "${{ env.VERSION }}${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}"
         if: ${{ env.BRANCH == 'test' || env.BRANCH == 'stage' || env.BRANCH == 'main' }}     
 
       - name: Create Release
