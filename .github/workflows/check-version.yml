@@ -47,7 +47,6 @@ jobs:
       
       - name: Build Docker image
         run: |
-          v
           echo "Building Docker image for branch: ${{ env.BRANCH }}"
           docker build -t ${{ env.VERSION }}${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }} .
         if: ${{ env.BRANCH == 'test' }}
