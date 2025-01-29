@@ -46,17 +46,24 @@ jobs:
       - name: Log in to GitHub container registry
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u $ --password-stdin
       
-      - name: Build Docker image
-        run: |
-          echo "Building Docker image for branch: ${{ env.BRANCH }} vmajor: ${{ env.MAJOR }} minor: ${{ env.MINOR }} patch: ${{ env.PATCH }}"
-          docker image build -t v${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }} .
-        if: ${{ env.BRANCH == 'test' }}
+      # - name: Build Docker image
+      #   run: |
+      #     echo "Building Docker image for branch: ${{ env.BRANCH }} major: ${{ env.MAJOR }} minor: ${{ env.MINOR }} patch: ${{ env.PATCH }}"
+      #     docker image build -t v${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }} .
+      #   if: ${{ env.BRANCH == 'test' }}
 
-      - name: Push Docker image to GitHub Packages
-        run: |
-          echo "Pushing Docker image to GitHub Packages"
-          docker push v${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}
-        if: ${{ env.BRANCH == 'test' || env.BRANCH == 'stage' || env.BRANCH == 'main' }}     
+      # - name: Push Docker image to GitHub Packages
+      #   run: |
+      #     echo "Pushing Docker image to GitHub Packages"
+      #     docker push v${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}
+      #   if: ${{ env.BRANCH == 'test' || env.BRANCH == 'stage' || env.BRANCH == 'main' }}
+
+      - name: Build and Publish head Docker image
+        uses: VaultVulp/gp-docker-action@1.1.12
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          image-name: v${{ env.MAJOR }}.${{ env.MINOR }}.${{ env.PATCH }}
+          build-context: .
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
