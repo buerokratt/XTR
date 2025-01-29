@@ -62,7 +62,7 @@ jobs:
         run: |
           echo "Pushing Docker image to GitHub Packages"
           docker push $DOCKER_TAG_CUSTOM
-        if: ${{ env.BRANCH == 'test' || env.BRANCH == 'stage' || env.BRANCH == 'main' }}
+        if: ${{ env.BRANCH == 'test' }}
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
